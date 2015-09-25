@@ -7,7 +7,7 @@
                       Title="FBE2-M Fertigungsplanung"
                       Height="800" Width="1280" MinWidth="1280" MinHeight="800"
                       WindowStartupLocation="CenterScreen" WindowState="Maximized"
-                      IconOverlayBehavior="Always" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                      IconOverlayBehavior="Always" ScrollViewer.VerticalScrollBarVisibility="Disabled" Icon="/FBE2.MaXolution.Fertigungsplanung;component/Resources/Image/appbar.box.ico" ResizeMode="CanResize">
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
