@@ -1,0 +1,338 @@
+﻿<Controls:MetroWindow
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:VM="clr-namespace:FBE2.MaXolution.Fertigungsplanung.ViewModel"
+                      xmlns:local="clr-namespace:FBE2.MaXolution.Fertigungsplanung.View" x:Class="FBE2.MaXolution.Fertigungsplanung.View.HauptfensterView"
+                      Title="FBE2-M Fertigungsplanung"
+                      Height="800" Width="1280" MinWidth="1280" MinHeight="800"
+                      WindowStartupLocation="CenterScreen" WindowState="Maximized"
+                      IconOverlayBehavior="Always" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+    <Controls:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro.Resources;component/Icons.xaml" />
+                <ResourceDictionary Source="/FBE2.MaXolution.Fertigungsplanung;component/Resources/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="LargeTileStyle"
+                   TargetType="{x:Type Controls:Tile}">
+                <Setter Property="Width"
+            		Value="300" />
+                <Setter Property="Height"
+            		Value="125" />
+                <Setter Property="TitleFontSize"
+            		Value="12" />
+            </Style>
+
+            <Style x:Key="SmallTileStyle"
+                   TargetType="{x:Type Controls:Tile}">
+                <Setter Property="Width"
+            		Value="147" />
+                <Setter Property="Height"
+            		Value="125" />
+                <Setter Property="TitleFontSize"
+            		Value="12" />
+            </Style>
+
+            <x:Array x:Key="WindowCommandsOverlayBehaviorArray"
+                     Type="{x:Type Controls:WindowCommandsOverlayBehavior}">
+                <Controls:WindowCommandsOverlayBehavior>Always</Controls:WindowCommandsOverlayBehavior>
+                <Controls:WindowCommandsOverlayBehavior>Flyouts</Controls:WindowCommandsOverlayBehavior>
+                <Controls:WindowCommandsOverlayBehavior>Never</Controls:WindowCommandsOverlayBehavior>
+            </x:Array>
+        </ResourceDictionary>
+    </Controls:MetroWindow.Resources>
+
+    <Controls:MetroWindow.DataContext>
+        <VM:HauptfensterViewModel/>
+    </Controls:MetroWindow.DataContext>
+
+    <Controls:MetroWindow.IconTemplate>
+        <DataTemplate>
+            <Grid Width="{TemplateBinding Width}"
+                  Height="{TemplateBinding Height}"
+                  Margin="4"
+                  Background="{DynamicResource IdealForegroundColorBrush}"
+                  RenderOptions.EdgeMode="Aliased"
+                  RenderOptions.BitmapScalingMode="HighQuality">
+                <Grid.OpacityMask>
+                    <VisualBrush Stretch="Uniform"
+                                 Visual="{DynamicResource appbar_box}" />
+                </Grid.OpacityMask>
+            </Grid>
+        </DataTemplate>
+    </Controls:MetroWindow.IconTemplate>
+
+    <Controls:MetroWindow.TitleTemplate>
+        <DataTemplate>
+            <TextBlock Text="{Binding Content, Converter={StaticResource ToUpperConverter}, RelativeSource={RelativeSource TemplatedParent}}"
+                       TextTrimming="CharacterEllipsis"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Margin="0 -1 8 0"
+                       FontSize="{DynamicResource WindowTitleFontSize}"
+                       FontFamily="{DynamicResource HeaderFontFamily}" />
+        </DataTemplate>
+    </Controls:MetroWindow.TitleTemplate>
+    <Controls:MetroWindow.Flyouts>
+        <Controls:FlyoutsControl x:Name="FlyoutsControl">
+            <Controls:Flyout Header="FBE2-M Fertigungsplanung"
+        		Position="Left"
+        		AnimateOpacity="True"
+        		Width="{Binding ActualWidth, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:MetroWindow}}}" IsOpen="{Binding FlyoutIsOpen}">
+                <ScrollViewer HorizontalScrollBarVisibility="Auto"
+        			VerticalScrollBarVisibility="Auto">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Vertical"  Margin="10">
+                            <TextBlock Grid.Column="1"
+        						VerticalAlignment="Center"
+        						Text="Auftragssteuerung"
+        						FontWeight="Light"
+        						Foreground="{DynamicResource BlackBrush}"
+        						FontSize="28"
+        						FontFamily="Segoe UI"
+        						Margin="10"/>
+                            <Controls:Tile Title="Auftragsliste"
+        						Style="{StaticResource LargeTileStyle}"
+        						Background="Green" Command="{Binding OpenView}" CommandParameter="Auftragsliste">
+                                <Grid Width="70" Height="70"
+        							Background="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
+                                    <Grid.OpacityMask>
+                                        <VisualBrush Stretch="Fill"
+        									Visual="{DynamicResource appbar_layer}" />
+                                    </Grid.OpacityMask>
+                                </Grid>
+                            </Controls:Tile>
+                            <StackPanel Orientation="Horizontal" >
+                                <Controls:Tile Title="Auftrag anlegen"
+        							Style="{StaticResource SmallTileStyle}"
+        							Background="#D2691E" Command="{Binding OpenView}" CommandParameter="AuftragAnlegen">
+                                    <Grid Width="70" Height="70"
+        								Background="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
+                                        <Grid.OpacityMask>
+                                            <VisualBrush Stretch="Fill"
+        										Visual="{DynamicResource appbar_layer_add}" />
+                                        </Grid.OpacityMask>
+                                    </Grid>
+                                </Controls:Tile>
+                                <Controls:Tile Title="Auftrag löschen"
+        							Style="{StaticResource SmallTileStyle}"
+        							Background="Red">
+                                    <Grid Width="70" Height="70"
+        								Background="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
+                                        <Grid.OpacityMask>
+                                            <VisualBrush Stretch="Fill"
+        										Visual="{DynamicResource appbar_layer_minus}" />
+                                        </Grid.OpacityMask>
+                                    </Grid>
+                                </Controls:Tile>
+                            </StackPanel>
+                            <TextBlock Grid.Column="1"
+        						VerticalAlignment="Center"
+        						Text="InfoCenter"
+        						FontWeight="Light"
+        						Foreground="{DynamicResource BlackBrush}"
+        						FontSize="28"
+        						FontFamily="Segoe UI"
+        						Margin="10"/>
+                            <StackPanel Orientation="Horizontal" >
+                                <Controls:Tile Title="Projekte"
+        							Style="{StaticResource SmallTileStyle}"
+        							Background="Maroon">
+                                    <Grid Width="70" Height="70"
+        								Background="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
+                                        <Grid.OpacityMask>
+                                            <VisualBrush Stretch="Fill"
+        										Visual="{DynamicResource appbar_office_project}" />
+                                        </Grid.OpacityMask>
+                                    </Grid>
+                                </Controls:Tile>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" >
+                                <Controls:Tile Title="Geräte"
+        							Style="{StaticResource SmallTileStyle}"
+        							Background="MidnightBlue">
+                                    <Grid Width="70" Height="70"
+        								Background="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
+                                        <Grid.OpacityMask>
+                                            <VisualBrush Stretch="Fill"
+        										Visual="{DynamicResource appbar_server}" />
+                                        </Grid.OpacityMask>
+                                    </Grid>
+                                </Controls:Tile>
+                                <Controls:Tile Title="FBG"
+        							Style="{StaticResource SmallTileStyle}"
+        							Background="DarkMagenta">
+                                    <Grid Width="70" Height="50"
+        								Background="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
+                                        <Grid.OpacityMask>
+                                            <VisualBrush Stretch="Fill"
+        										Visual="{DynamicResource appbar_input_keyboard}" />
+                                        </Grid.OpacityMask>
+                                    </Grid>
+                                </Controls:Tile>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical"  Margin="10">
+                            <TextBlock Grid.Column="1"
+        						VerticalAlignment="Center"
+        						Text="Komponentensteuerung"
+        						FontWeight="Light"
+        						Foreground="{DynamicResource BlackBrush}"
+        						FontSize="28"
+        						FontFamily="Segoe UI"
+        						Margin="10"/>
+                            <Controls:Tile Title="Komponentenliste"
+        						Style="{StaticResource LargeTileStyle}"
+        						Background="#1E90FF">
+                                <Grid Width="70" Height="70"
+        							Background="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
+                                    <Grid.OpacityMask>
+                                        <VisualBrush Stretch="Fill"
+        									Visual="{DynamicResource appbar_calendar_tomorrow}" />
+                                    </Grid.OpacityMask>
+                                </Grid>
+                            </Controls:Tile>
+                            <TextBlock Grid.Column="1"
+        						VerticalAlignment="Center"
+        						Text="Sonstige"
+        						FontWeight="Light"
+        						Foreground="{DynamicResource BlackBrush}"
+        						FontSize="28"
+        						FontFamily="Segoe UI"
+        						Margin="10,140,10,10"/>
+                            <Controls:Tile Title="FBG-Puffer-Schränke"
+        						Style="{StaticResource LargeTileStyle}"
+        						Background="ForestGreen">
+                                <Grid Width="70" Height="70"
+        							Background="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
+                                    <Grid.OpacityMask>
+                                        <VisualBrush Stretch="Fill"
+        									Visual="{DynamicResource appbar_border_horizontal}" />
+                                    </Grid.OpacityMask>
+                                </Grid>
+                            </Controls:Tile>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Margin="10">
+                            <TextBlock Grid.Column="1"
+        						VerticalAlignment="Center"
+        						Text="Gerätesteuerung"
+        						FontWeight="Light"
+        						Foreground="{DynamicResource BlackBrush}"
+        						FontSize="28"
+        						FontFamily="Segoe UI"
+        						Margin="10"/>
+                            <Controls:Tile Title="Verheiratung"
+        						Style="{StaticResource LargeTileStyle}"
+        						Background="DarkCyan">
+                                <Grid Width="70" Height="70"
+        							Background="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
+                                    <Grid.OpacityMask>
+                                        <VisualBrush Stretch="Fill"
+        									Visual="{DynamicResource appbar_add_multiple}" />
+                                    </Grid.OpacityMask>
+                                </Grid>
+                            </Controls:Tile>
+                            <Controls:Tile Title="Rückmeldung"
+        						Style="{StaticResource LargeTileStyle}"
+        						Background="MediumVioletRed">
+                                <Grid Width="70" Height="70"
+        							Background="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
+                                    <Grid.OpacityMask>
+                                        <VisualBrush Stretch="Fill"
+        									Visual="{DynamicResource appbar_device_return}" />
+                                    </Grid.OpacityMask>
+                                </Grid>
+                            </Controls:Tile>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Margin="10">
+                            <TextBlock Grid.Column="1"
+        						VerticalAlignment="Center"
+        						Text="Projektdisposition"
+        						FontWeight="Light"
+        						Foreground="{DynamicResource BlackBrush}"
+        						FontSize="28"
+        						FontFamily="Segoe UI"
+        						Margin="10"/>
+                            <Controls:Tile Title="Projektdisposition"
+        						Style="{StaticResource LargeTileStyle}"
+        						Background="SaddleBrown">
+                                <Grid Width="70" Height="70"
+        							Background="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
+                                    <Grid.OpacityMask>
+                                        <VisualBrush Stretch="Fill"
+        									Visual="{DynamicResource appbar_diagram}" />
+                                    </Grid.OpacityMask>
+                                </Grid>
+                            </Controls:Tile>
+                            <TextBlock Grid.Column="1"
+        						VerticalAlignment="Center"
+        						Text="Gerätereparaturen"
+        						FontWeight="Light"
+        						Foreground="{DynamicResource BlackBrush}"
+        						FontSize="28"
+        						FontFamily="Segoe UI"
+        						Margin="10,140,10,10"/>
+                            <StackPanel Orientation="Horizontal">
+                                <Controls:Tile Title="Reparaturen QSE-R"
+        							Style="{StaticResource SmallTileStyle}"
+        							Background="ForestGreen">
+                                    <Grid Width="70" Height="70"
+        								Background="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
+                                        <Grid.OpacityMask>
+                                            <VisualBrush Stretch="Fill"
+        										Visual="{DynamicResource appbar_cog}" />
+                                        </Grid.OpacityMask>
+                                    </Grid>
+                                </Controls:Tile>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
+    </Controls:MetroWindow.Flyouts>
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button Command="{Binding OpenView}" CommandParameter="Einstellungen">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20" Height="20"
+                       Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                             Visual="{StaticResource appbar_cogs}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Margin="4 0 0 0"
+                       VerticalAlignment="Center"
+                       Text="Einstellungen" />
+                </StackPanel>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+    <StackPanel Orientation="Horizontal">
+        <Grid Width="50" Background="#FF272727" MouseLeftButtonUp="StackPanel_MouseLeftButtonUp">
+            <TextBlock
+				VerticalAlignment="Top"
+				Text="Menu"
+				FontWeight="Light"
+				Foreground="{Binding WindowTitleBrush, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:HauptfensterView}}}"
+				FontSize="36"
+				FontFamily="Segoe UI"
+				RenderTransformOrigin="0.5,0.5" Margin="-18,71,-27,0" Height="46" HorizontalAlignment="Left">
+                <TextBlock.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-90"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+        </Grid>
+        <StackPanel Orientation="Vertical">
+            <ScrollViewer Content="{Binding ActiveView}" HorizontalScrollBarVisibility="Visible"/>
+        </StackPanel>
+    </StackPanel>
+</Controls:MetroWindow>
