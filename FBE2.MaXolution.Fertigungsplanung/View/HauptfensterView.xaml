@@ -184,7 +184,7 @@
                           Background="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
                                     <Grid.OpacityMask>
                                         <VisualBrush Stretch="Fill"
-                                         Visual="{DynamicResource appbar_layer}" />
+                                         Visual="{DynamicResource appbar_calendar_tomorrow}" />
                                     </Grid.OpacityMask>
                                 </Grid>
                             </Controls:Tile>
@@ -203,7 +203,7 @@
                           Background="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
                                     <Grid.OpacityMask>
                                         <VisualBrush Stretch="Fill"
-                                         Visual="{DynamicResource appbar_layer}" />
+                                         Visual="{DynamicResource appbar_border_horizontal}" />
                                     </Grid.OpacityMask>
                                 </Grid>
                             </Controls:Tile>
@@ -260,12 +260,51 @@
                                     </Grid.OpacityMask>
                                 </Grid>
                             </Controls:Tile>
+                            <TextBlock Grid.Column="1"
+                               VerticalAlignment="Center"
+                               Text="Gerätereparaturen"
+                               FontWeight="Light"
+                               Foreground="{DynamicResource BlackBrush}"
+                               FontSize="28"
+                               FontFamily="Segoe UI"
+                               Margin="10,140,10,10"/>
+                            <StackPanel Orientation="Horizontal">
+                                <Controls:Tile Title="Reparaturen QSE-R"
+                                   Style="{StaticResource SmallTileStyle}"
+                                   Background="ForestGreen">
+                                    <Grid Width="70" Height="70"
+                              Background="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
+                                        <Grid.OpacityMask>
+                                            <VisualBrush Stretch="Fill"
+                                             Visual="{DynamicResource appbar_cog}" />
+                                        </Grid.OpacityMask>
+                                    </Grid>
+                                </Controls:Tile>
+                            </StackPanel>
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
             </Controls:Flyout>
         </Controls:FlyoutsControl>
     </Controls:MetroWindow.Flyouts>
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button>
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20" Height="20"
+                       Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                             Visual="{StaticResource appbar_cogs}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Margin="4 0 0 0"
+                       VerticalAlignment="Center"
+                       Text="Einstellungen" />
+                </StackPanel>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
     <StackPanel Orientation="Horizontal">
         <StackPanel Orientation="Vertical" Width="50" Background="#FF272727" MouseLeftButtonUp="StackPanel_MouseLeftButtonUp">
             <TextBlock
