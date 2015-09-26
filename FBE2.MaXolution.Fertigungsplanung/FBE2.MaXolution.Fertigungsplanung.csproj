@@ -82,6 +82,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Framework\Datenbank.cs" />
     <Compile Include="Model\Auftrag.cs" />
     <Compile Include="Model\Einstellungen.cs" />
     <Compile Include="Model\Ersteller.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Model\Projekt.cs" />
     <Compile Include="Model\Vertriebsart.cs" />
     <Compile Include="Model\XMLWriter.cs" />
+    <Compile Include="ViewModel\AuftragslisteViewModel.cs" />
     <Compile Include="ViewModel\EinstellungenViewModel.cs" />
     <Compile Include="View\AuftragslisteView.xaml.cs">
       <DependentUpon>AuftragslisteView.xaml</DependentUpon>

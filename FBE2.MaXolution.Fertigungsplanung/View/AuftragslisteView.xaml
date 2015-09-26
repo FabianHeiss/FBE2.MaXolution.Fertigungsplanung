@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:VM="clr-namespace:FBE2.MaXolution.Fertigungsplanung.ViewModel"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d"
              Name="Auftragsliste">
@@ -41,6 +42,9 @@
             </x:Array>
         </ResourceDictionary>
     </UserControl.Resources>
+    <UserControl.DataContext>
+        <VM:AuftragslisteViewModel/>
+    </UserControl.DataContext>
     <StackPanel Orientation="Vertical">
         <TextBlock
         	VerticalAlignment="Center"
@@ -108,8 +112,30 @@
                     </Grid>
                 </Controls:Tile>
             </StackPanel>
-            <DataGrid MinWidth="400" Margin="10,0,0,0" >
-            
+            <DataGrid x:Name="dataGrid" MinWidth="400" Margin="10,0,0,0" ItemsSource="{Binding Auftragsliste}" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Auftragsnummer">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Auftragsnummer}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Gerät Id">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Gerät_Id}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Fertigungsstatus Id">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Fertigungsstatus_Id}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
     </StackPanel>
