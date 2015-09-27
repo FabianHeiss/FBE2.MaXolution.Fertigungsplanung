@@ -74,7 +74,16 @@ namespace FBE2.MaXolution.Fertigungsplanung.Model
         // Allgemeine Felder
         public long Auftrag_Id { get; set; }
         public string Auftragsnummer { get; set; }
-        public long Gerät_Id { get; set; }
+        public long Gerät_Id {
+            get
+            {
+                return Gerät.Gerät_Id;
+            }
+            set
+            {
+                Gerät = new Geraet(value);
+            }
+        }
         public Geraet Gerät { get; set; }
         public long Fertigungsstatus_Id { get; set; }
         public Fertigungsstatus Fertigungsstatus { get; set; }

@@ -311,7 +311,7 @@
             </Button>
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
-    <StackPanel Orientation="Horizontal">
+    <DockPanel>
         <Grid Width="50" Background="#FF272727" MouseLeftButtonUp="StackPanel_MouseLeftButtonUp">
             <TextBlock
 				VerticalAlignment="Top"
@@ -331,8 +331,6 @@
                 </TextBlock.RenderTransform>
             </TextBlock>
         </Grid>
-        <StackPanel Orientation="Vertical">
-            <ScrollViewer Content="{Binding ActiveView}" HorizontalScrollBarVisibility="Visible"/>
-        </StackPanel>
-    </StackPanel>
+        <ContentControl x:Name="ContentControl" Content="{Binding ActiveView}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+    </DockPanel>
 </Controls:MetroWindow>

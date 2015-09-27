@@ -3,6 +3,7 @@ using FBE2.MaXolution.Fertigungsplanung.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,15 @@ namespace FBE2.MaXolution.Fertigungsplanung.ViewModel
     {
         public AuftragslisteViewModel()
         {
-            _Auftragsliste.Add(new Auftrag(2));
+            Datenbank db = new Datenbank();
+            DataTable dt = new DataTable();
+            dt = db.ExecuteQuery("SELECT Auftrag_Id FROM S_Auftrag");
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                _Auftragsliste.Add(new Auftrag(long.Parse(dr[0].ToString())));
+            }
+            
         }
 
         private ObservableCollection<Auftrag> _Auftragsliste = new ObservableCollection<Auftrag>();
