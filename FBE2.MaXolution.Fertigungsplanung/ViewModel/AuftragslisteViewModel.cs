@@ -16,7 +16,7 @@ namespace FBE2.MaXolution.Fertigungsplanung.ViewModel
         {
             Datenbank db = new Datenbank();
             DataTable dt = new DataTable();
-            dt = db.ExecuteQuery("SELECT Auftrag_Id FROM S_Auftrag");
+            dt = db.ExecuteQuery("SELECT Auftrag_Id FROM S_Auftrag ORDER BY Liefertermin");
 
             foreach (DataRow dr in dt.Rows)
             {

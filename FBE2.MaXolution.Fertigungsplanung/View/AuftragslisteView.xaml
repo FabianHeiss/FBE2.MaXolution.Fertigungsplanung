@@ -84,62 +84,62 @@
             </StackPanel>
             <DockPanel Grid.Row="1">
                 <StackPanel Orientation="Vertical">
-                        <Controls:Tile Title="Offene Aufträge"
+                    <Controls:Tile Title="Offene Aufträge"
 					Style="{StaticResource SmallTileStyle}"
 					Background="DarkCyan">
-                            <Grid Width="85" Height="70"
+                        <Grid Width="85" Height="70"
 						Background="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
-                                <Grid.OpacityMask>
-                                    <VisualBrush Stretch="Fill"
+                            <Grid.OpacityMask>
+                                <VisualBrush Stretch="Fill"
 								Visual="{DynamicResource fbe2_maxolution_fertigungsplanung_boxopen}" />
-                                </Grid.OpacityMask>
-                            </Grid>
-                        </Controls:Tile>
-                        <Controls:Tile Title="Offene Begleitkarten"
+                            </Grid.OpacityMask>
+                        </Grid>
+                    </Controls:Tile>
+                    <Controls:Tile Title="Offene Begleitkarten"
 					Style="{StaticResource SmallTileStyle}"
 					Background="Green">
-                            <Grid Width="70" Height="70"
+                        <Grid Width="70" Height="70"
 						Background="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
-                                <Grid.OpacityMask>
-                                    <VisualBrush Stretch="Fill"
+                            <Grid.OpacityMask>
+                                <VisualBrush Stretch="Fill"
 								Visual="{DynamicResource fbe2_maxolution_fertigungsplanung_begleitkarte}" />
-                                </Grid.OpacityMask>
-                            </Grid>
-                        </Controls:Tile>
-                        <Controls:Tile Title="Versendete Aufträge"
+                            </Grid.OpacityMask>
+                        </Grid>
+                    </Controls:Tile>
+                    <Controls:Tile Title="Versendete Aufträge"
 					Style="{StaticResource SmallTileStyle}"
 					Background="Navy">
-                            <Grid Width="70" Height="70"
+                        <Grid Width="70" Height="70"
 						Background="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
-                                <Grid.OpacityMask>
-                                    <VisualBrush Stretch="Fill"
+                            <Grid.OpacityMask>
+                                <VisualBrush Stretch="Fill"
 								Visual="{DynamicResource fbe2_maxolution_fertigungsplanung_boxclosed}" />
-                                </Grid.OpacityMask>
-                            </Grid>
-                        </Controls:Tile>
-                        <Controls:Tile Title="Erledigte Begleitkarten"
+                            </Grid.OpacityMask>
+                        </Grid>
+                    </Controls:Tile>
+                    <Controls:Tile Title="Erledigte Begleitkarten"
 					Style="{StaticResource SmallTileStyle}"
 					Background="DarkMagenta">
-                            <Grid Width="70" Height="70"
+                        <Grid Width="70" Height="70"
 						Background="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
-                                <Grid.OpacityMask>
-                                    <VisualBrush Stretch="Fill"
+                            <Grid.OpacityMask>
+                                <VisualBrush Stretch="Fill"
 								Visual="{DynamicResource fbe2_maxolution_fertigungsplanung_begleitkarte_erledigt}" />
-                                </Grid.OpacityMask>
-                            </Grid>
-                        </Controls:Tile>
-                        <Controls:Tile Title="Gelöschte Aufträge"
+                            </Grid.OpacityMask>
+                        </Grid>
+                    </Controls:Tile>
+                    <Controls:Tile Title="Gelöschte Aufträge"
 					Style="{StaticResource SmallTileStyle}"
 					Background="Firebrick">
-                            <Grid Width="70" Height="70"
+                        <Grid Width="70" Height="70"
 						Background="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
-                                <Grid.OpacityMask>
-                                    <VisualBrush Stretch="Fill"
+                            <Grid.OpacityMask>
+                                <VisualBrush Stretch="Fill"
 								Visual="{DynamicResource fbe2_maxolution_fertigungsplanung_aufträgegeloescht}" />
-                                </Grid.OpacityMask>
-                            </Grid>
-                        </Controls:Tile>
-                    </StackPanel>
+                            </Grid.OpacityMask>
+                        </Grid>
+                    </Controls:Tile>
+                </StackPanel>
                 <StackPanel Orientation="Vertical" Margin="10,0,0,0">
                     <Controls:Tile Style="{StaticResource DataGridTileStyle}" Background="Chocolate" ToolTip="Auftragsdetails">
                         <Grid Width="40" Height="40"
@@ -198,6 +198,55 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Gerät.Bezeichnung}" Margin="10,0,0,0"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Anz.">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Anzahl}" Margin="10,0,0,0"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Auftraggeber">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Auftraggeber}" Margin="10,0,0,0"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Wunschtermin">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding WunschterminFormat}" Margin="10,0,0,0"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Liefertermin">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding LieferterminFormat}" Background="{Binding LieferterminBackground}"  Margin="10,0,0,0" Padding="3,2"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Fertigungsstatus">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Fertigungsstatus.strFertigungsstatus}" Background="{Binding Fertigungsstatus.Background}" Margin="10,0,0,0" Foreground="Black" Padding="3,2"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="FAUF">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Fertigungsauftrag}" Margin="10,0,0,0"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Vertriebsart">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Vertriebsart.strVertriebsart}" Margin="10,0,0,0"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
