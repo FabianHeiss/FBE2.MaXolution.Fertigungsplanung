@@ -33,6 +33,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="BarcodeLib">
       <HintPath>..\packages\BarcodeLib\BarcodeLib.dll</HintPath>
@@ -78,17 +82,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Framework\Datenbank.cs" />
+    <Compile Include="Model\Auftrag.cs" />
+    <Compile Include="Model\Einstellungen.cs" />
+    <Compile Include="Model\Ersteller.cs" />
+    <Compile Include="Model\Fertigungsstatus.cs" />
+    <Compile Include="Model\Geraet.cs" />
+    <Compile Include="Model\Komponente.cs" />
+    <Compile Include="Model\Projekt.cs" />
+    <Compile Include="Model\Vertriebsart.cs" />
+    <Compile Include="Model\XMLWriter.cs" />
+    <Compile Include="ViewModel\AuftragslisteViewModel.cs" />
+    <Compile Include="ViewModel\EinstellungenViewModel.cs" />
     <Compile Include="View\AuftragslisteView.xaml.cs">
       <DependentUpon>AuftragslisteView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UserControl1.xaml.cs">
-      <DependentUpon>UserControl1.xaml</DependentUpon>
-    </Compile>
     <Page Include="View\AuftragslisteView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\UserControl1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -96,6 +105,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Resource>
+    <Page Include="View\EinstellungenView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\HauptfensterView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -106,6 +119,9 @@
     </Compile>
     <Compile Include="Framework\BaseViewModel.cs" />
     <Compile Include="ViewModel\HauptfensterViewModel.cs" />
+    <Compile Include="View\EinstellungenView.xaml.cs">
+      <DependentUpon>EinstellungenView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\HauptfensterView.xaml.cs">
       <DependentUpon>HauptfensterView.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -141,14 +157,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Model\" />
-    <Folder Include="Resources\Image\" />
+    <Resource Include="Resources\Image\appbar.box.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\WindowsIcons-license.txt" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Entypo-license.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\FBE.MaXolution.Fertigungsplanung.Datenbank.mdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

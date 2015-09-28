@@ -7,7 +7,7 @@
                       Title="FBE2-M Fertigungsplanung"
                       Height="800" Width="1280" MinWidth="1280" MinHeight="800"
                       WindowStartupLocation="CenterScreen" WindowState="Maximized"
-                      IconOverlayBehavior="Always" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                      IconOverlayBehavior="Always" ScrollViewer.VerticalScrollBarVisibility="Disabled" Icon="/FBE2.MaXolution.Fertigungsplanung;component/Resources/Image/appbar.box.ico" ResizeMode="CanResize">
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -80,7 +80,7 @@
             <Controls:Flyout Header="FBE2-M Fertigungsplanung"
         		Position="Left"
         		AnimateOpacity="True"
-        		Width="{Binding ActualWidth, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:MetroWindow}}}">
+        		Width="{Binding ActualWidth, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:MetroWindow}}}" IsOpen="{Binding FlyoutIsOpen}">
                 <ScrollViewer HorizontalScrollBarVisibility="Auto"
         			VerticalScrollBarVisibility="Auto">
                     <StackPanel Orientation="Horizontal">
@@ -95,7 +95,7 @@
         						Margin="10"/>
                             <Controls:Tile Title="Auftragsliste"
         						Style="{StaticResource LargeTileStyle}"
-        						Background="Green">
+        						Background="Green" Command="{Binding OpenView}" CommandParameter="Auftragsliste">
                                 <Grid Width="70" Height="70"
         							Background="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
                                     <Grid.OpacityMask>
@@ -107,7 +107,7 @@
                             <StackPanel Orientation="Horizontal" >
                                 <Controls:Tile Title="Auftrag anlegen"
         							Style="{StaticResource SmallTileStyle}"
-        							Background="#D2691E">
+        							Background="#D2691E" Command="{Binding OpenView}" CommandParameter="AuftragAnlegen">
                                     <Grid Width="70" Height="70"
         								Background="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
                                         <Grid.OpacityMask>
@@ -295,7 +295,7 @@
     </Controls:MetroWindow.Flyouts>
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
-            <Button>
+            <Button Command="{Binding OpenView}" CommandParameter="Einstellungen">
                 <StackPanel Orientation="Horizontal">
                     <Rectangle Width="20" Height="20"
                        Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}">
@@ -311,16 +311,16 @@
             </Button>
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
-    <StackPanel Orientation="Horizontal">
-        <StackPanel Orientation="Vertical" Width="50" Background="#FF272727" MouseLeftButtonUp="StackPanel_MouseLeftButtonUp">
+    <DockPanel>
+        <Grid Width="50" Background="#FF272727" MouseLeftButtonUp="StackPanel_MouseLeftButtonUp">
             <TextBlock
 				VerticalAlignment="Top"
 				Text="Menu"
 				FontWeight="Light"
-				Foreground="{DynamicResource WhiteBrush}"
-				FontSize="24"
+				Foreground="{Binding WindowTitleBrush, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:HauptfensterView}}}"
+				FontSize="36"
 				FontFamily="Segoe UI"
-				RenderTransformOrigin="0.5,0.5" Margin="-7,80,0,0" Height="28" HorizontalAlignment="Left">
+				RenderTransformOrigin="0.5,0.5" Margin="-18,71,-27,0" Height="46" HorizontalAlignment="Left">
                 <TextBlock.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -330,9 +330,7 @@
                     </TransformGroup>
                 </TextBlock.RenderTransform>
             </TextBlock>
-        </StackPanel>
-        <StackPanel Orientation="Vertical">
-            <ScrollViewer Content="{Binding ActiveView}"></ScrollViewer>
-        </StackPanel>
-    </StackPanel>
+        </Grid>
+        <ContentControl x:Name="ContentControl" Content="{Binding ActiveView}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+    </DockPanel>
 </Controls:MetroWindow>

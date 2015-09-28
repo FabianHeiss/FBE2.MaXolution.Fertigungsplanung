@@ -9,6 +9,10 @@ using FBE2.MaXolution.Fertigungsplanung.View;
 using MahApps.Metro.Controls;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
+using System.Windows.Input;
+using MahApps.Metro;
+using System.Windows;
+using FBE2.MaXolution.Fertigungsplanung.Model;
 
 namespace FBE2.MaXolution.Fertigungsplanung.ViewModel
 {
@@ -16,12 +20,45 @@ namespace FBE2.MaXolution.Fertigungsplanung.ViewModel
     {
         public HauptfensterViewModel()
         {
-            this.AddViews();
-            this.ActiveView = new AuftragslisteView();
+            Einstellungen Einstellung = new Einstellungen();
+            Einstellung.getEinstellungen();
+
+            var appTheme = ThemeManager.GetAppTheme(Einstellung.Theme);
+            var accent = ThemeManager.GetAccent(Einstellung.AccentColor);
+            ThemeManager.ChangeAppStyle(Application.Current, accent, appTheme);
+
+
+            FlyoutIsOpen = true;
+            AddViews();
+            //this.ActiveView = new AuftragslisteView();
+
+            OpenView = new DelegateCommand<string>(OpenView_Execute, OpenView_CanExecute);
+            ToggleFlyout = new DelegateCommand(ToggleFlyout_Execute);
         }
 
+        #region FlyOut (Menu)
+        private bool _FlyoutIsOpen;
+        public bool FlyoutIsOpen
+        {
+            get
+            {
+                return _FlyoutIsOpen;
+            }
+            set
+            {
+                _FlyoutIsOpen = value;
+                OnPropertyChanged("FlyoutIsOpen");
+            }
+        }
+
+        public ICommand ToggleFlyout { get; set; }
+        private void ToggleFlyout_Execute(){
+            FlyoutIsOpen = !FlyoutIsOpen;
+        }
+        #endregion
+
         #region ViewControl
-        private DelegateCommand<string> OpenView{ get; set; }
+        public ICommand OpenView{ get; set; }
         private ObservableCollection<UserControl> Views = new ObservableCollection<UserControl>();
         
         private void OpenView_Execute(string ViewName)
@@ -30,6 +67,7 @@ namespace FBE2.MaXolution.Fertigungsplanung.ViewModel
             {
                 UserControl View = Views.First(p => p.Name == ViewName);
                 ActiveView = View;
+                FlyoutIsOpen = false;
             }
         }
 
@@ -64,7 +102,9 @@ namespace FBE2.MaXolution.Fertigungsplanung.ViewModel
         {
             // Views hinzufügen
             // Views.Add(new ViewName());
+            // Name-Tag im UserControl muss gesetzt sein!!!
             Views.Add(new AuftragslisteView());
+            Views.Add(new EinstellungenView());
         }
         #endregion
     }

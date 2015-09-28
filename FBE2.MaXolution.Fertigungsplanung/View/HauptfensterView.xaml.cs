@@ -27,8 +27,6 @@ namespace FBE2.MaXolution.Fertigungsplanung.View
         public HauptfensterView()
         {
             InitializeComponent();
-            this.ToggleFlyout(0);
-            this.DataContext = new HauptfensterViewModel();
 
             //BarcodeLib.Barcode b = new BarcodeLib.Barcode();
             //var image =b.Encode(BarcodeLib.TYPE.CODE39, "7246587401.0001.M",600,90);
@@ -46,18 +44,8 @@ namespace FBE2.MaXolution.Fertigungsplanung.View
 
         private void StackPanel_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            this.ToggleFlyout(0);
-        }
-
-        public void ToggleFlyout(int index)
-        {
-            var flyout = this.Flyouts.Items[index] as Flyout;
-            if (flyout == null)
-            {
-                return;
-            }
-
-            flyout.IsOpen = !flyout.IsOpen;
+            var flyout = this.Flyouts.Items[0] as Flyout;
+            flyout.IsOpen = true;
         }
     }
 }
