@@ -57,7 +57,7 @@ namespace FBE2.MaXolution.Fertigungsplanung.ViewModel
             foreach (DataRow dr in dt.Rows)
             {
                 Console.WriteLine("Eintrag hinzufügen start: " + DateTime.Now);
-                Aufträge.Add(new Auftrag(long.Parse(dr[0].ToString()),true));
+                Aufträge.Add(new Auftrag(long.Parse(dr[0].ToString()), true));
                 Console.WriteLine("intrag hinzufügen ende: " + DateTime.Now);
             }
             Console.WriteLine("Ende: " + DateTime.Now);

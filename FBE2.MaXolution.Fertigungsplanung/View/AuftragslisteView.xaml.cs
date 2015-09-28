@@ -28,8 +28,11 @@ namespace FBE2.MaXolution.Fertigungsplanung.View
 
         private void Auftragsliste_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            AuftragslisteViewModel vm = (AuftragslisteViewModel)DataContext;
-            vm.LoadData_Start();
+            if (this.IsVisible == true)
+            { 
+                AuftragslisteViewModel vm = (AuftragslisteViewModel)DataContext;
+                vm.LoadData_Start();
+            }
         }
     }
 }
