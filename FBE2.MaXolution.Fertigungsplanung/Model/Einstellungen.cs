@@ -24,6 +24,12 @@ namespace FBE2.MaXolution.Fertigungsplanung.Model
         public void getEinstellungen()
         {
             // ToDo: Einstellungen aus XML-Datei holen
+            if (checkFileExists() == false)
+            {
+                this.Theme = "BaseLight";
+                this.AccentColor = "Blue";
+                saveEinstellungen();
+            }
             XMLWriter xml = new XMLWriter();
             Einstellungen Einstellung = xml.Read(GetApplicationsPath() + "/" + xmlFile, this);
             AccentColor = Einstellung.AccentColor;
@@ -40,6 +46,15 @@ namespace FBE2.MaXolution.Fertigungsplanung.Model
         {
             FileInfo fi = new FileInfo(Assembly.GetEntryAssembly().Location);
             return fi.DirectoryName;
+        }
+
+        private bool checkFileExists()
+        {
+            string file = GetApplicationsPath() + "/" + xmlFile;
+            if (File.Exists(file))
+                return true;
+            else 
+                return false;
         }
     }
 }

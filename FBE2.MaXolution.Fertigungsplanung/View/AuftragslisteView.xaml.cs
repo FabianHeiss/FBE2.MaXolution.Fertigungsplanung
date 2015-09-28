@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FBE2.MaXolution.Fertigungsplanung.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,12 @@ namespace FBE2.MaXolution.Fertigungsplanung.View
         public AuftragslisteView()
         {
             InitializeComponent();
+        }
+
+        private void Auftragsliste_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            AuftragslisteViewModel vm = (AuftragslisteViewModel)DataContext;
+            vm.LoadData_Start();
         }
     }
 }

@@ -7,7 +7,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FBE2.MaXolution.Fertigungsplanung.View" x:Class="FBE2.MaXolution.Fertigungsplanung.View.AuftragslisteView" 
              mc:Ignorable="d"
-             x:Name="Auftragsliste" Height="Auto">
+             x:Name="Auftragsliste" Height="Auto" IsVisibleChanged="Auftragsliste_IsVisibleChanged">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -86,7 +86,7 @@
                 <StackPanel Orientation="Vertical">
                     <Controls:Tile Title="Offene Aufträge"
 					Style="{StaticResource SmallTileStyle}"
-					Background="DarkCyan">
+					Background="DarkCyan" Command="{Binding GetData}" CommandParameter="Offene Aufträge">
                         <Grid Width="85" Height="70"
 						Background="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
                             <Grid.OpacityMask>
@@ -97,7 +97,7 @@
                     </Controls:Tile>
                     <Controls:Tile Title="Offene Begleitkarten"
 					Style="{StaticResource SmallTileStyle}"
-					Background="Green">
+					Background="Green" Command="{Binding GetData}" CommandParameter="Offene Begleitkarten">
                         <Grid Width="70" Height="70"
 						Background="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
                             <Grid.OpacityMask>
@@ -229,7 +229,21 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Fertigungsstatus">
+                        <DataGridTemplateColumn Header="Projektnr.">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Projekt.Projektnummer}" Margin="10,0,0,0"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Projektbezeichnung">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Projekt.Bezeichnung}" Margin="10,0,0,0"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Status">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Fertigungsstatus.strFertigungsstatus}" Background="{Binding Fertigungsstatus.Background}" Margin="10,0,0,0" Foreground="Black" Padding="3,2"/>

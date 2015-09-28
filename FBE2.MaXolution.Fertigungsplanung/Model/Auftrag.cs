@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Media;
 
@@ -24,17 +25,29 @@ namespace FBE2.MaXolution.Fertigungsplanung.Model
         {
             getAuftrag(Id);
         }
+
+        public Auftrag(long Id, bool Auftragsliste)
+        {
+            getAuftrag(Id, Auftragsliste);
+        }
         #endregion
 
         #region Funktionen
         // Auftrag aus Datenbank holen und Klassenparameter mit Daten füllen
-        private void getAuftrag(long Id)
+        private void getAuftrag(long Id, bool Auftragsliste = false)
         {
+            Console.WriteLine("Auftrag anlegen start:" + DateTime.Now.ToString("hh.mm.ss.ffffff"));
             // ToDo: Parameter mit Werten füllen
             Datenbank db = new Datenbank();
             DataTable dt = new DataTable();
-            dt = db.ExecuteQuery("SELECT * FROM S_Auftrag WHERE Auftrag_Id = " + Id.ToString());
-
+            if (Auftragsliste == true)
+            {
+                dt = db.ExecuteQuery("SELECT Auftrag_Id, Auftragsnummer, Gerät_Id, Anzahl, Auftraggeber, Projekt_Id, Wunschtermin, Liefertermin, Fertigungsstatus_Id, Fertigungsauftrag, Vertriebsart_Id FROM S_Auftrag WHERE Auftrag_Id = " + Id.ToString());
+            }
+            else {
+                dt = db.ExecuteQuery("SELECT * FROM S_Auftrag WHERE Auftrag_Id = " + Id.ToString());
+            }
+            Console.WriteLine("Auftrag zuweisen start:" + DateTime.Now.ToString("hh.mm.ss.ffffff"));
             foreach (DataRow dr in dt.Rows)
             {
                 foreach (DataColumn dc in dt.Columns){
@@ -101,6 +114,8 @@ namespace FBE2.MaXolution.Fertigungsplanung.Model
                     }
                 }
             }
+            Console.WriteLine("Auftrag zuweisen ende:" + DateTime.Now.ToString("hh.mm.ss.ffffff"));
+            Console.WriteLine("Auftrag anlegen ende:" + DateTime.Now.ToString("hh.mm.ss.ffffff"));
         }
 
         private void setLieferterminBackground()
@@ -178,7 +193,7 @@ namespace FBE2.MaXolution.Fertigungsplanung.Model
         {
             get
             {
-                return (Wunschtermin != 0 & Wunschtermin.ToString().Length == 6) ? Wunschtermin.ToString().Substring(0, 4) + " / KW " + Wunschtermin.ToString().Substring(4, 2) : "---";
+                return (Wunschtermin != 0 & Wunschtermin.ToString().Length == 6) ? Wunschtermin.ToString().Substring(0, 4) + " / KW" + Wunschtermin.ToString().Substring(4, 2) : "---";
             }
         }
         public long Liefertermin { get; set; }
@@ -186,7 +201,7 @@ namespace FBE2.MaXolution.Fertigungsplanung.Model
         {
             get
             {
-                return (Liefertermin != 0 & Liefertermin.ToString().Length == 6) ? Liefertermin.ToString().Substring(0, 4) + " / KW " + Liefertermin.ToString().Substring(4, 2) : "---";
+                return (Liefertermin != 0 & Liefertermin.ToString().Length == 6) ? Liefertermin.ToString().Substring(0, 4) + " / KW" + Liefertermin.ToString().Substring(4, 2) : "---";
             }
         }
         public Brush LieferterminBackground { get; set; }
