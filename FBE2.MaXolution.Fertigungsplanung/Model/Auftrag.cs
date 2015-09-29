@@ -40,13 +40,22 @@ namespace FBE2.MaXolution.Fertigungsplanung.Model
             // ToDo: Parameter mit Werten füllen
             Datenbank db = new Datenbank();
             DataTable dt = new DataTable();
-            if (Auftragsliste == true)
-            {
-                dt = db.ExecuteQuery("SELECT Auftrag_Id, Auftragsnummer, Gerät_Id, Anzahl, Auftraggeber, Projekt_Id, Wunschtermin, Liefertermin, Fertigungsstatus_Id, Fertigungsauftrag, Vertriebsart_Id FROM S_Auftrag WHERE Auftrag_Id = " + Id.ToString());
-            }
-            else {
-                dt = db.ExecuteQuery("SELECT * FROM S_Auftrag WHERE Auftrag_Id = " + Id.ToString());
-            }
+            //if (Auftragsliste == true)
+            //{
+            //    dt = db.ExecuteQuery("SELECT Auftrag_Id, Auftragsnummer, Gerät_Id, Anzahl, Auftraggeber, Projekt_Id, Wunschtermin, Liefertermin, Fertigungsstatus_Id, Fertigungsauftrag, Vertriebsart_Id FROM S_Auftrag WHERE Auftrag_Id = " + Id.ToString());
+            //}
+            //else {
+            //    dt = db.ExecuteQuery("SELECT * FROM S_Auftrag WHERE Auftrag_Id = " + Id.ToString());
+            //}
+
+            dt = db.ExecuteQuery("SELECT S_Auftrag.*, H_Fertigungsstatus.*, H_Benutzer.*, H_Vertriebsart.*, H_Gerät.*, H_Projekte.* " +
+            "FROM ((((S_Auftrag LEFT JOIN H_Benutzer ON S_Auftrag.Ersteller_Id = H_Benutzer.Ersteller_Id) " +
+            "LEFT JOIN H_Fertigungsstatus ON S_Auftrag.Fertigungsstatus_Id = H_Fertigungsstatus.Fertigungsstatus_Id) " +
+            "LEFT JOIN H_Gerät ON S_Auftrag.Gerät_Id = H_Gerät.Gerät_Id) " +
+            "LEFT JOIN H_Projekte ON S_Auftrag.Projekt_Id = H_Projekte.Projekt_Id) " +
+            "LEFT JOIN H_Vertriebsart ON S_Auftrag.Vertriebsart_Id = H_Vertriebsart.Vertriebsart_Id " +
+            "WHERE (((S_Auftrag.Auftrag_Id)="+Id+"))");
+
             Console.WriteLine("Auftrag zuweisen start:" + DateTime.Now.ToString("hh.mm.ss.ffffff"));
             foreach (DataRow dr in dt.Rows)
             {
@@ -60,10 +69,10 @@ namespace FBE2.MaXolution.Fertigungsplanung.Model
                         case "Auftraggeber":
                             Auftraggeber = cellContent.ToString();
                             break;
-                        case "Projekt_Id":
+                        case "S_Auftrag.Projekt_Id":
                             Projekt_Id = (cellContent.ToString() != string.Empty) ? long.Parse(cellContent.ToString()) : 0;
                             break;
-                        case "Gerät_Id":
+                        case "S_Auftrag.Gerät_Id":
                             Gerät_Id = (cellContent.ToString() != string.Empty) ? long.Parse(cellContent.ToString()) : 0;
                             break;
                         case "Anzahl":
@@ -82,7 +91,7 @@ namespace FBE2.MaXolution.Fertigungsplanung.Model
                                 Komponentenliefertermin = DateTime.Parse(cellContent.ToString());
                             }
                             break;
-                        case "Fertigungsstatus_Id":
+                        case "S_Auftrag.Fertigungsstatus_Id":
                             Fertigungsstatus_Id = (cellContent.ToString() != string.Empty) ? long.Parse(cellContent.ToString()) : 0;
                             break;
                         case "Fertigungsauftrag":
@@ -91,7 +100,7 @@ namespace FBE2.MaXolution.Fertigungsplanung.Model
                         case "Maßnahme":
                             Maßnahme = cellContent.ToString();
                             break;
-                        case "Ersteller_Id":
+                        case "S_Auftrag.Ersteller_Id":
                             Ersteller_Id = (cellContent.ToString() != string.Empty) ? long.Parse(cellContent.ToString()) : 0;
                             break;
                         case "Erstelldatum":
@@ -106,8 +115,95 @@ namespace FBE2.MaXolution.Fertigungsplanung.Model
                                 Versanddatum = DateTime.Parse(cellContent.ToString());
                             }
                             break;
-                        case "Vertriebsart_Id":
+                        case "S_Auftrag.Vertriebsart_Id":
                             Vertriebsart_Id = (cellContent.ToString() != string.Empty) ? long.Parse(cellContent.ToString()) : 0;
+                            break;
+                        case "Fertigungsstatus":
+                            Fertigungsstatus.strFertigungsstatus = cellContent.ToString();
+                            break;
+                        case "Nachname":
+                            Ersteller.Nachname = cellContent.ToString();
+                            break;
+                        case "Vorname":
+                            Ersteller.Vorname = cellContent.ToString();
+                            break;
+                        case "eMail":
+                            Ersteller.eMail = cellContent.ToString();
+                            break;
+                        case "Windowskennung":
+                            Ersteller.Windowskennung = cellContent.ToString();
+                            break;
+                        case "Vertriebsart":
+                            Vertriebsart.strVertriebsart = cellContent.ToString();
+                            break;
+                        case "Sachnummer":
+                            Gerät.Sachnummer = cellContent.ToString();
+                            break;
+                        case "Bezeichnung":
+                            Gerät.Bezeichnung = cellContent.ToString();
+                            break;
+                        case "Version":
+                            Gerät.Version = cellContent.ToString();
+                            break;
+                        case "Bemerkung":
+                            Gerät.Bemerkung = cellContent.ToString();
+                            break;
+                        case "Fertigungszeit":
+                            Gerät.Fertigungszeit = (cellContent.ToString() != string.Empty) ? float.Parse(cellContent.ToString()) : 0;
+                            break;
+                        case "Fertigungszeit_Gesamt":
+                            Gerät.Fertigungszeit_Gesamt = (cellContent.ToString() != string.Empty) ? float.Parse(cellContent.ToString()) : 0;
+                            break;
+                        case "AAWMontage":
+                            Gerät.AAWMontage = (cellContent.ToString() != string.Empty) ? long.Parse(cellContent.ToString()) : 0;
+                            break;
+                        case "AAWPrüfung":
+                            Gerät.AAWPrüfung = (cellContent.ToString() != string.Empty) ? long.Parse(cellContent.ToString()) : 0;
+                            break;
+                        case "AAWKomplettierung":
+                            Gerät.AAWKomplettierung = (cellContent.ToString() != string.Empty) ? long.Parse(cellContent.ToString()) : 0;
+                            break;
+                        case "Dokumentation":
+                            Gerät.Dokumentation = cellContent.ToString();
+                            break;
+                        case "Sonderfreigabe":
+                            Gerät.Sonderfreigabe = bool.Parse(cellContent.ToString());
+                            break;
+                        case "Gewicht":
+                            Gerät.Gewicht = (cellContent.ToString() != string.Empty) ? float.Parse(cellContent.ToString()) : 0;
+                            break;
+                        case "StückzahlProVerpackungseinheit":
+                            Gerät.StückzahlProVerpackungseinheit = (cellContent.ToString() != string.Empty) ? int.Parse(cellContent.ToString()) : 0;
+                            break;
+                        case "Versand_Komplettierung":
+                            Gerät.Versand_Komplettierung = bool.Parse(cellContent.ToString());
+                            break;
+                        case "Versand_Versand":
+                            Gerät.Versand_Versand = bool.Parse(cellContent.ToString());
+                            break;
+                        case "ErprobtMitBGK":
+                            Gerät.ErprobtMitBGK = cellContent.ToString();
+                            break;
+                        case "MontageProTag":
+                            Gerät.MontageProTag = (cellContent.ToString() != string.Empty) ? int.Parse(cellContent.ToString()) : 0;
+                            break;
+                        case "Projektnummer":
+                            Projekt.Projektnummer = (cellContent.ToString() != string.Empty) ? long.Parse(cellContent.ToString()) : 0;
+                            break;
+                        case "Projektbezeichnung":
+                            Projekt.Bezeichnung = cellContent.ToString();
+                            break;
+                        case "Kunde":
+                            Projekt.Kunde = cellContent.ToString();
+                            break;
+                        case "OEM":
+                            Projekt.OEM = cellContent.ToString();
+                            break;
+                        case "Vertriebsweg":
+                            Projekt.Vertriebsweg = cellContent.ToString();
+                            break;
+                        case "Kennung":
+                            Projekt.Kennung = cellContent.ToString();
                             break;
                         default:
                             break;
@@ -172,7 +268,8 @@ namespace FBE2.MaXolution.Fertigungsplanung.Model
             }
             set
             {
-                Projekt = new Projekt(value);
+                Projekt = new Projekt();
+                Projekt.Projekt_Id = value;
             }
         }
         public Projekt Projekt { get; set; }
@@ -183,7 +280,8 @@ namespace FBE2.MaXolution.Fertigungsplanung.Model
             }
             set
             {
-                Gerät = new Geraet(value);
+                Gerät = new Geraet();
+                Gerät.Gerät_Id = value;
             }
         }
         public Geraet Gerät { get; set; }
@@ -214,7 +312,8 @@ namespace FBE2.MaXolution.Fertigungsplanung.Model
             }
             set
             {
-                Fertigungsstatus = new Fertigungsstatus(value);
+                Fertigungsstatus = new Fertigungsstatus();
+                Fertigungsstatus.Fertigungsstatus_Id = value;
             }
         }
         public Fertigungsstatus Fertigungsstatus { get; set; }
@@ -228,7 +327,8 @@ namespace FBE2.MaXolution.Fertigungsplanung.Model
             }
             set
             {
-                Ersteller = new Ersteller(value);
+                Ersteller = new Ersteller();
+                Ersteller.Ersteller_Id = value;
             }
         }
         public Ersteller Ersteller { get; set; }
@@ -242,7 +342,8 @@ namespace FBE2.MaXolution.Fertigungsplanung.Model
             }
             set
             {
-                Vertriebsart = new Vertriebsart(value);
+                Vertriebsart = new Vertriebsart();
+                Vertriebsart.Vertriebsart_Id = value;
             }
         }
         public Vertriebsart Vertriebsart { get; set; }

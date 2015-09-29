@@ -15,8 +15,8 @@ namespace FBE2.MaXolution.Fertigungsplanung.Framework
         {
         }
 
-        //private string _connectionString = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=C:\\Users\\DEHEIFAB\\Documents\\Visual Studio 2013\\Projects\\FBE2.MaXolution.Fertigungsplanung\\FBE2.MaXolution.Fertigungsplanung\\Resources\\FBE.MaXolution.Fertigungsplanung.Datenbank.mdb";
-        private string _connectionString = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=C:\\Users\\Fabian\\Documents\\Visual Studio 2013\\Projects\\FBE2.MaXolution.Fertigungsplanung\\FBE2.MaXolution.Fertigungsplanung\\Resources\\FBE.MaXolution.Fertigungsplanung.Datenbank.mdb";
+        private string _connectionString = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=C:\\Users\\DEHEIFAB\\Documents\\Visual Studio 2013\\Projects\\FBE2.MaXolution.Fertigungsplanung\\FBE2.MaXolution.Fertigungsplanung\\Resources\\FBE.MaXolution.Fertigungsplanung.Datenbank.mdb";
+        //private string _connectionString = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=C:\\Users\\Fabian\\Documents\\Visual Studio 2013\\Projects\\FBE2.MaXolution.Fertigungsplanung\\FBE2.MaXolution.Fertigungsplanung\\Resources\\FBE.MaXolution.Fertigungsplanung.Datenbank.mdb";
 
         public DataTable ExecuteQuery(string sqlString)
         {
