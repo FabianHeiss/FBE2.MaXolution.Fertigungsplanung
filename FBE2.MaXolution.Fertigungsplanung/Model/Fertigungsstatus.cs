@@ -51,7 +51,7 @@ namespace FBE2.MaXolution.Fertigungsplanung.Model
             }
         }
 
-        private void setBackground()
+        public void setBackground()
         {
             Point p1 = new Point(0,0);
             Point p2 = new Point(1.5,1);

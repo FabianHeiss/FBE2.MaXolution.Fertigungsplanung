@@ -120,6 +120,7 @@ namespace FBE2.MaXolution.Fertigungsplanung.Model
                             break;
                         case "Fertigungsstatus":
                             Fertigungsstatus.strFertigungsstatus = cellContent.ToString();
+                            Fertigungsstatus.setBackground();
                             break;
                         case "Nachname":
                             Ersteller.Nachname = cellContent.ToString();
