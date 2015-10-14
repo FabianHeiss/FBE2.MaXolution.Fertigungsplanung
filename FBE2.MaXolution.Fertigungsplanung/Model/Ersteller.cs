@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FBE2.MaXolution.Fertigungsplanung.Model
 {
-    class Ersteller
+    public class Ersteller
     {
         #region Constructor
         public Ersteller()

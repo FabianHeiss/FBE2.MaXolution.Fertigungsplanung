@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FBE2.MaXolution.Fertigungsplanung.Model
 {
-    class Vertriebsart
+    public class Vertriebsart
     {
         #region Constructor
         public Vertriebsart()

@@ -12,7 +12,7 @@ using System.Windows.Media;
 
 namespace FBE2.MaXolution.Fertigungsplanung.Model
 {
-    class Auftrag
+    public class Auftrag
     {
         #region Konstruktor
         // Konstruktor für einen neuen Auftrag
@@ -57,6 +57,9 @@ namespace FBE2.MaXolution.Fertigungsplanung.Model
             "WHERE (((S_Auftrag.Auftrag_Id)="+Id+"))");
 
             Console.WriteLine("Auftrag zuweisen start:" + DateTime.Now.ToString("hh.mm.ss.ffffff"));
+
+            Auftrag_Id = Id;
+
             foreach (DataRow dr in dt.Rows)
             {
                 foreach (DataColumn dc in dt.Columns){

@@ -10,7 +10,7 @@ using System.Windows.Media;
 
 namespace FBE2.MaXolution.Fertigungsplanung.Model
 {
-    class Fertigungsstatus
+    public class Fertigungsstatus
     {
         #region Constructor
         public Fertigungsstatus()

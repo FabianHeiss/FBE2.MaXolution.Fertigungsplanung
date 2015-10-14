@@ -8,6 +8,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace FBE2.MaXolution.Fertigungsplanung.ViewModel
 {
@@ -16,6 +17,8 @@ namespace FBE2.MaXolution.Fertigungsplanung.ViewModel
         public AuftragslisteViewModel()
         {
             GetData = new DelegateCommand<string>(GetData_Execute);
+            AuftragsDetails = new DelegateCommand(Auftragsdetails_Execute);
+            MsgBoxSelected = new DelegateCommand(MsgBoxSelected_Execute);
         }
 
         private ObservableCollection<Auftrag> _Auftragsliste;
@@ -29,6 +32,8 @@ namespace FBE2.MaXolution.Fertigungsplanung.ViewModel
                 OnPropertyChanged("Auftragsliste");
             }
         }
+
+        public Auftrag SelectedAuftrag { get; set; }
 
         public void LoadData_Start(){
             Datenbank db = new Datenbank();
@@ -92,6 +97,38 @@ namespace FBE2.MaXolution.Fertigungsplanung.ViewModel
                 default:
                     break;
             }
+        }
+
+        public DelegateCommand MsgBoxSelected { get; set; }
+
+        private void MsgBoxSelected_Execute()
+        {
+            if (SelectedAuftrag != null)
+            {
+                MessageBox.Show(SelectedAuftrag.Auftragsnummer);
+            }
+        }
+
+        private DelegateCommand _AuftragsDetails;
+        public DelegateCommand AuftragsDetails
+        { 
+            get
+            {
+                return _AuftragsDetails;
+            }
+            set
+            {
+                _AuftragsDetails = value;
+                OnPropertyChanged("AuftragsDetails");
+            }
+        }
+
+        private void Auftragsdetails_Execute()
+        {
+            if (SelectedAuftrag != null)
+            {
+                MessageBox.Show(SelectedAuftrag.Auftragsnummer + " " + SelectedAuftrag.Auftrag_Id);
+            } 
         }
     }
 }

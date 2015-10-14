@@ -13,11 +13,15 @@ using System.Windows.Input;
 using MahApps.Metro;
 using System.Windows;
 using FBE2.MaXolution.Fertigungsplanung.Model;
+using Microsoft.Practices.ServiceLocation;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace FBE2.MaXolution.Fertigungsplanung.ViewModel
 {
     class HauptfensterViewModel : BaseViewModel
     {
+        private FrameNavigationService navi;
+
         public HauptfensterViewModel()
         {
             Einstellungen Einstellung = new Einstellungen();
@@ -30,6 +34,7 @@ namespace FBE2.MaXolution.Fertigungsplanung.ViewModel
 
             FlyoutIsOpen = true;
             AddViews();
+            AddNavigationUris();
             //this.ActiveView = new AuftragslisteView();
 
             OpenView = new DelegateCommand<string>(OpenView_Execute, OpenView_CanExecute);
@@ -58,8 +63,8 @@ namespace FBE2.MaXolution.Fertigungsplanung.ViewModel
         #endregion
 
         #region ViewControl
-        public ICommand OpenView{ get; set; }
-        private ObservableCollection<UserControl> Views = new ObservableCollection<UserControl>();
+        public DelegateCommand<string> OpenView{ get; set; }
+        public ObservableCollection<UserControl> Views = new ObservableCollection<UserControl>();
         
         private void OpenView_Execute(string ViewName)
         {
@@ -69,18 +74,20 @@ namespace FBE2.MaXolution.Fertigungsplanung.ViewModel
                 ActiveView = View;
                 FlyoutIsOpen = false;
             }
+            navi.NavigateTo(ViewName);
         }
 
         private bool OpenView_CanExecute(string ViewName)
         {
-            if (Views.Any(p => p.Name == ViewName))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            //if (Views.Any(p => p.Name == ViewName))
+            //{
+            //    return true;
+            //}
+            //else
+            //{
+            //    return false;
+            //}
+            return true;
         }
 
         private UserControl _ActiveView;
@@ -105,6 +112,22 @@ namespace FBE2.MaXolution.Fertigungsplanung.ViewModel
             // Name-Tag im UserControl muss gesetzt sein!!!
             Views.Add(new AuftragslisteView());
             Views.Add(new EinstellungenView());
+        }
+
+        private void AddNavigationUris()
+        {
+            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+
+            navi = new FrameNavigationService();
+
+            navi.Configure("Auftragsliste", new Uri("../View/AuftragslisteView.xaml", UriKind.Relative));
+            navi.Configure("Auftragsdetails", new Uri("../View/AuftragsdetailsView.xaml", UriKind.Relative));
+            navi.Configure("Einstellungen", new Uri("../View/EinstellungenView.xaml", UriKind.Relative));
+
+            //SimpleIoc.Default.Register<AuftragsdetailsViewModel>();
+            //SimpleIoc.Default.Register<AuftragslisteView>();
+            //SimpleIoc.Default.Register<EinstellungenViewModel>(); 
+
         }
         #endregion
     }

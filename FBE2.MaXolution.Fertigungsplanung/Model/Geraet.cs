@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FBE2.MaXolution.Fertigungsplanung.Model
 {
-    class Geraet
+    public class Geraet
     {
         #region Konstruktor
         // Konstruktor für einen neuen Auftrag

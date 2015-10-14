@@ -105,17 +105,6 @@
                             </Grid.OpacityMask>
                         </Grid>
                     </Controls:Tile>
-                    <Controls:Tile Title="Offene Begleitkarten"
-					Style="{StaticResource SmallTileStyle}"
-					Background="Green" Command="{Binding GetData}" CommandParameter="Offene Begleitkarten">
-                        <Grid Width="70" Height="70"
-						Background="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
-                            <Grid.OpacityMask>
-                                <VisualBrush Stretch="Fill"
-								Visual="{DynamicResource fbe2_maxolution_fertigungsplanung_begleitkarte}" />
-                            </Grid.OpacityMask>
-                        </Grid>
-                    </Controls:Tile>
                     <Controls:Tile Title="Versendete Aufträge"
 					Style="{StaticResource SmallTileStyle}"
 					Background="Navy">
@@ -124,6 +113,17 @@
                             <Grid.OpacityMask>
                                 <VisualBrush Stretch="Fill"
 								Visual="{DynamicResource fbe2_maxolution_fertigungsplanung_boxclosed}" />
+                            </Grid.OpacityMask>
+                        </Grid>
+                    </Controls:Tile>
+                    <Controls:Tile Title="Offene Begleitkarten"
+					Style="{StaticResource SmallTileStyle}"
+					Background="Green" Command="{Binding GetData}" CommandParameter="Offene Begleitkarten">
+                        <Grid Width="70" Height="70"
+						Background="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
+                            <Grid.OpacityMask>
+                                <VisualBrush Stretch="Fill"
+								Visual="{DynamicResource fbe2_maxolution_fertigungsplanung_begleitkarte}" />
                             </Grid.OpacityMask>
                         </Grid>
                     </Controls:Tile>
@@ -151,7 +151,7 @@
                     </Controls:Tile>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Margin="10,0,0,0">
-                    <Controls:Tile Style="{StaticResource DataGridTileStyle}" Background="Chocolate" ToolTip="Auftragsdetails">
+                    <Controls:Tile Style="{StaticResource DataGridTileStyle}" Background="Chocolate" ToolTip="Auftragsdetails" Command="{Binding OpenViewFromHere}" CommandParameter="">
                         <Grid Width="40" Height="40"
 						Background="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
                             <Grid.OpacityMask>
@@ -160,7 +160,7 @@
                             </Grid.OpacityMask>
                         </Grid>
                     </Controls:Tile>
-                    <Controls:Tile Style="{StaticResource DataGridTileStyle}" Background="DarkSlateBlue" ToolTip="Auftrag bearbeiten">
+                    <Controls:Tile Style="{StaticResource DataGridTileStyle}" Background="DarkSlateBlue" ToolTip="Auftrag bearbeiten" Command="{Binding MsgBoxSelected}">
                         <Grid Width="40" Height="40"
 						Background="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:Tile}}}">
                             <Grid.OpacityMask>
@@ -188,7 +188,7 @@
                         </Grid>
                     </Controls:Tile>
                 </StackPanel>
-                <DataGrid x:Name="dataGrid" IsReadOnly="True" ItemsSource="{Binding Auftragsliste}" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" GridLinesVisibility="Horizontal" CanUserResizeRows="False" Margin="0,0,10,0">
+                <DataGrid x:Name="dataGrid" IsReadOnly="True" ItemsSource="{Binding Auftragsliste}" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" GridLinesVisibility="Horizontal" CanUserResizeRows="False" Margin="0,0,10,0" SelectedItem="{Binding SelectedAuftrag, Mode=TwoWay}">
                     <DataGrid.Columns>
                             <DataGridTemplateColumn Header="Auftragsnr.">
                                 <DataGridTemplateColumn.CellTemplate>

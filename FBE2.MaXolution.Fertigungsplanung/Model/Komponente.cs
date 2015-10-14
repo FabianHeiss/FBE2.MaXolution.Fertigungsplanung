@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FBE2.MaXolution.Fertigungsplanung.Model
 {
-    class Komponente
+    public class Komponente
     {
     }
 }

@@ -43,11 +43,9 @@
             </x:Array>
         </ResourceDictionary>
     </Controls:MetroWindow.Resources>
-
     <Controls:MetroWindow.DataContext>
         <VM:HauptfensterViewModel/>
     </Controls:MetroWindow.DataContext>
-
     <Controls:MetroWindow.IconTemplate>
         <DataTemplate>
             <Grid Width="{TemplateBinding Width}"
@@ -63,7 +61,6 @@
             </Grid>
         </DataTemplate>
     </Controls:MetroWindow.IconTemplate>
-
     <Controls:MetroWindow.TitleTemplate>
         <DataTemplate>
             <TextBlock Text="{Binding Content, Converter={StaticResource ToUpperConverter}, RelativeSource={RelativeSource TemplatedParent}}"
@@ -331,6 +328,7 @@
                 </TextBlock.RenderTransform>
             </TextBlock>
         </Grid>
-        <ContentControl x:Name="ContentControl" Content="{Binding ActiveView}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+        <!--<ContentControl x:Name="ContentControl" Content="{Binding ActiveView}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>-->
+        <Frame Name="MainFrame"></Frame>
     </DockPanel>
 </Controls:MetroWindow>

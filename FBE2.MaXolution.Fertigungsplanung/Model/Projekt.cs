@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FBE2.MaXolution.Fertigungsplanung.Model
 {
-    class Projekt
+    public class Projekt
     {
         #region Constructor
         public Projekt()
